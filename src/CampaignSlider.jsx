@@ -23,7 +23,7 @@ export default function GameCardSlider() {
       name: "String Puzzles", 
       description: "Solve puzzles using string manipulation",
       image: teacher,
-      path: "string.html"
+      path: "./string.html"
     },
     { 
       id: 3, 
