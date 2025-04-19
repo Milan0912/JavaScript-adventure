@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript String Learning Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .classroom {
+            width: 100%;
+            height: 100vh;
+            background-image: url('https://img.freepik.com/free-vector/empty-school-classroom-interior-with-chalkboard_107791-631.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .blackboard {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 200px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .code-box {
+        position: absolute;
+        bottom: 3%; /* Lowered from 20% to 10% */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+        textarea {
+            width: 100%;
+            height: 120px;
+            font-family: monospace;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .submit-btn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .feedback {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: none;
+        }
+        .score {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff9800;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="classroom">
+        <div class="score">Score: <span id="scoreValue">0</span></div>
+        <div class="blackboard">
+            <h2>String on Board:</h2>
+            <p id="displayString">JavaScript is Amazing!</p>
+        </div>
+        <div class="code-box">
+            <h3 id="question">Write code to extract the first 10 characters of the string:</h3>
+            <textarea id="codeInput" placeholder="Write your code here..."></textarea>
+            <button class="submit-btn" onclick="checkAnswer()">Submit</button>
+            <p><strong>Hint:</strong> Use `.slice()` to extract a portion of a string.</p>
+        </div>
+        <div class="feedback" id="feedback"></div>
+    </div>
+
+    <script>
+        let score = 0;
+        let currentString = "JavaScript is Amazing!";
+        
+        const questions = [
+            {
+                question: "Write code to extract the first 10 characters of the string:",
+                expectedResult: "JavaScript",
+                hint: "Use `.slice()` to extract a portion of a string."
+            },
+            {
+                question: "Write code to convert the string to lowercase:",
+                expectedResult: "javascript is amazing!",
+                hint: "Use `.toLowerCase()` to convert to lowercase."
+            },
+            {
+                question: "Write code to find the index of the word 'is' in the string:",
+                expectedResult: "11",
+                hint: "Use `.indexOf()` to find the position of a substring."
+            },
+            {
+                question: "Write code to replace 'Amazing' with 'Awesome' in the string:",
+                expectedResult: "JavaScript is Awesome!",
+                hint: "Use `.replace()` to replace parts of a string."
+            },
+            {
+                question: "Write code to check if the string contains the word 'JavaScript':",
+                expectedResult: "true",
+                hint: "Use `.includes()` to check for substrings."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function displayQuestion() {
+            const questionObj = questions[currentQuestionIndex];
+            document.getElementById('question').textContent = questionObj.question;
+            document.getElementById('codeInput').value = "";
+        }
+
+        function showFeedback(isCorrect) {
+            const feedback = document.getElementById('feedback');
+            feedback.style.display = 'block';
+            feedback.style.color = isCorrect ? '#4CAF50' : '#ff0000';
+            feedback.textContent = isCorrect ? 'Correct! 🎉' : 'Wrong Answer! 😕';
+
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 1500);
+        }
+
+        function checkAnswer() {
+            const userCode = document.getElementById('codeInput').value.trim();
+            const questionObj = questions[currentQuestionIndex];
+            
+            try {
+                const result = eval(userCode);
+
+                if (String(result) === questionObj.expectedResult) {
+                    score += 10;
+                    document.getElementById('scoreValue').textContent = score;
+                    showFeedback(true);
+                } else {
+                    showFeedback(false);
+                }
+            } catch (error) {
+                showFeedback(false);
+            }
+
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            setTimeout(displayQuestion, 1500);
+        }
+
+        // Start the game
+        displayQuestion();
+    </script>
+</body>
+</html>
