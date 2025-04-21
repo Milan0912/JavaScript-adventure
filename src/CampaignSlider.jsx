@@ -5,7 +5,7 @@ import teacher from "./assets/teacher.png"
 import functionimg from "./assets/function.png"
 import dom from "./assets/dom.png"
 import events from "./assets/events.png"
-
+import Intro from '/public/array/intro';
 export default function GameCardSlider() {
   // Game data with one game per topic
   const games = [
@@ -15,7 +15,7 @@ export default function GameCardSlider() {
       name: "Array Explorer", 
       description: "Explore array methods through puzzle solving",
       image: dragon,
-      path:"/array/intro.jsx"
+      path: Intro
     },
     { 
       id: 2, 
