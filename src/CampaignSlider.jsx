@@ -5,7 +5,7 @@ import teacher from "./assets/teacher.png"
 import functionimg from "./assets/function.png"
 import dom from "./assets/dom.png"
 import events from "./assets/events.png"
-import {Link} from 'react-router-dom'
+
 export default function GameCardSlider() {
   // Game data with one game per topic
   const games = [
