@@ -15,7 +15,7 @@ export default function GameCardSlider() {
       name: "Array Explorer", 
       description: "Explore array methods through puzzle solving",
       image: dragon,
-      path: "/games/arrays"
+      path:"/array/intro.jsx"
     },
     { 
       id: 2, 
